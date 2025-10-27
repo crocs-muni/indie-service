@@ -21,7 +21,7 @@ def derive_salt(token) -> bytes:
     m.update(b"Salt service")
     # NOTE multiple audiences might be present
     m.update(token["aud"][0].encode())
-    m.update(token["name"].encode())
+    m.update(token["sub"].encode())
     m.update(app.config.get("HASH_SALT_SECRET"))
     return m.digest()
 
