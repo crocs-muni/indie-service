@@ -3,6 +3,7 @@ import hashlib
 import jwt
 
 from flask import Flask, request, jsonify
+from flask_cors import cross_origin
 
 from noise.connection import NoiseConnection, Keypair
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
@@ -31,6 +32,7 @@ def verify_nonce() -> bool:
 
 
 @app.route("/get-salt", methods=["POST"])
+@cross_origin()
 def get_salt():
     token = request.form.get("jwt")
     decoded = jwt.decode(
